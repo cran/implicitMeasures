@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Ottavia M. Epifania" />
+
+<meta name="date" content="2019-08-02" />
+
+<title>implicitMeasures</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">implicitMeasures</h1>
+<h4 class="author">Ottavia M. Epifania</h4>
+<h4 class="date">2019-08-02</h4>
+
+
+
+<p>This vignette gives an overview of <code>implicitMeasures</code> package functioning. The structure of the Implicit Association Test <span class="citation">(IAT; Greenwald, McGhee, and Schwartz 1998)</span> and the Single Category IAT <span class="citation">(SC-IAT; Karpinski and Steinman 2006)</span> will be illustrated, as well as the algorithms used for the computation of their scores. A brief description of the data set <code>raw_data</code> is given as well.</p>
+<div id="the-implicit-association-test" class="section level2">
+<h2>The Implicit Association Test</h2>
+<p>The IAT measures the strength and direction of automatic associations between objects and attributes by means of the speed and accuracy with which respondents sort stimuli into their belonging category. The IAT (Table 1) is usually composed of seven blocks. Three blocks (B1, B2 and B5 in Table 1) are pure practice blocks in which either object stimuli or attribute stimuli are sorted in their reference categories. The remaining blocks are the associative blocks that constitute the two IAT mappings conditions (e.g., Mapping A and Mapping B). Usually, the practice and associative practice blocks are composed of 20 trials each, while the associative test blocks are composed of 40 trials each. The two mapping conditions result in 60 trials each.</p>
+
+<table style="border-collapse:collapse;" class=table_4484 border=0>
+<caption style="font-weight:bold;text-align:left;">Table 1: IAT structure.</caption>
+<col width="20">
+<col width="310">
+<col width="310">
+<col width="310">
+<thead>
+<tr style="border-bottom:2px solid black;border-top:3px solid black;">
+  <th id="tableHTML_header_1">Block</th>
+  <th id="tableHTML_header_2">Function</th>
+  <th id="tableHTML_header_3">Left response key</th>
+  <th id="tableHTML_header_4">Right response key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">1</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Practice</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 1</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 2</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">2</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Practice</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Negative</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">3</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative Practice Mapping A</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 1 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 2 + Negative</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">4</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative Test Mapping A</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 1 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 2 + Negative</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">5</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Practice</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 2</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 1</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">6</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative Practice Mapping B</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 2 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 1 + Negative</td>
+</tr>
+<tr style="border-bottom:3px solid black;">
+  <td id="tableHTML_column_1" style="text-align:center;">7</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative Test Mapping B</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 2 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 1 + Negative</td>
+</tr>
+</tbody>
+</table>
+<p>During IAT administration, respondents might be given a feedback. In case a stimulus is sorted into the incorrect category, a red cross appears on the screen and the response must be corrected to proceed with the experiment. If a feedback strategy is not included, the error response is not signaled to participants, and they can go on with the experiment.</p>
+<p>The <em>IAT effect</em> is given by the difference between respondents’ performance in the two associative conditions, under the assumption that the categorization task is easier (i.e., lower response times and higher response accuracy) in the associative condition consistent with respondents’ automatic association. The strength and direction of the IAT effect is usually assessed by means of <em>D-score</em> <span class="citation">(Greenwald, Nosek, and Banaji 2003)</span>, for which different algorithms are available (Table 2). The differences between the algorithms lie in the strategies used for treating error and fast responses, while the core procedure remains the same.</p>
+
+<table style="border-collapse:collapse;" class=table_2929 border=0>
+<caption style="font-weight:bold;text-align:left;">Table 2: D-score algorithm</caption>
+<col width="20">
+<col width="210">
+<col width="210">
+<thead>
+<tr style="border-bottom:2px solid black;border-top:3px solid black;">
+  <th id="tableHTML_header_1">Dscore</th>
+  <th id="tableHTML_header_2">Error treatment</th>
+  <th id="tableHTML_header_3">Lower tail treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">D1</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Built-in</td>
+  <td id="tableHTML_column_3" style="text-align:center;">No</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">D2</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Built-in</td>
+  <td id="tableHTML_column_3" style="text-align:center;">&#60; 400ms</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">D3</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Mean + 2sd</td>
+  <td id="tableHTML_column_3" style="text-align:center;">No</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">D4</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Mean + 600ms</td>
+  <td id="tableHTML_column_3" style="text-align:center;">No</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">D5</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Mean +2 sd</td>
+  <td id="tableHTML_column_3" style="text-align:center;">&#60; 400ms</td>
+</tr>
+<tr style="border-bottom:3px solid black;">
+  <td id="tableHTML_column_1" style="text-align:center;">D6</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Mean + 600ms</td>
+  <td id="tableHTML_column_3" style="text-align:center;">&#60;4 00ms</td>
+</tr>
+</tbody>
+</table>
+<p>Irrespective of the algorithm, trials with a response latency exceeding 10,000ms must be excluded. When participants are given a feedback for their responses, the algorithms using a built-in correction (<em>D1</em> and <em>D2</em>) must be used, according to which error responses are replaced by the time at the incorrect response increased by the time needed to correct it. All the other algorithms (<em>D3</em> to <em>D6</em>) are used when IAT administration does not include a feedback. The error responses are replaced by the average response time of the block in which the error occurred increased by a standard penalty (i.e., either 600ms or twice the standard deviation of the block). The other feature distinguishing the algorithms regards the decision to include responses faster than 300ms or not.</p>
+<p>Once the algorithm has been chosen and the error and fast responses have been treated accordingly, it is possible to compute the <em>D-score</em> following a 3-step procedure:</p>
+<ol style="list-style-type: decimal">
+<li><p>Compute the <em>D-score</em> for the associative practice block (i.e., <span class="math inline">\(D_{practice}\)</span>) as the difference between the average response time in the two contrasting associative practice blocks. This difference is divided by the standard deviation of the pooled blocks trials.</p></li>
+<li><p>Compute the <em>D-score</em> for the associative test blocks (i.e., <span class="math inline">\(D_{test}\)</span>) as the difference between the average response time in the two contrasting associative test blocks. This difference is divided by the standard deviation of the pooled blocks trials.</p></li>
+<li><p>Compute the actual <em>D-score</em> as the mean of <span class="math inline">\(D_{practice}\)</span> and <span class="math inline">\(D_{test}\)</span>.</p></li>
+</ol>
+<p><code>implicitMeasures</code> also includes a function (<code>IATrel()</code>) for computing IAT reliability as the correlation between the <em>D-score</em>s computed on practice and on test blocks <span class="citation">(Gawronski et al. 2017)</span>.</p>
+</div>
+<div id="the-single-category-implicit-association-test" class="section level2">
+<h2>The Single Category Implicit Association Test</h2>
+<p>The SC-IAT <span class="citation">(Table 3; Karpinski and Steinman 2006)</span> has been proposed as an alternative to the IAT when the aim is to obtain a measure of the strength of the automatic association that is not dependent to the contrasted object. It results from a modification of the IAT procedure itself in which one of the object categories is dropped. The associative practice blocks are usually composed of 24 trials, while the associative test blocks are composed of 72 trials.</p>
+
+<table style="border-collapse:collapse;" class=table_9988 border=0>
+<caption style="font-weight:bold;text-align:left;">Table 3: SC-IAT structure</caption>
+<col width="20">
+<col width="210">
+<col width="210">
+<col width="210">
+<thead>
+<tr style="border-bottom:2px solid black;border-top:3px solid black;">
+  <th id="tableHTML_header_1">Block</th>
+  <th id="tableHTML_header_2">Function</th>
+  <th id="tableHTML_header_3">Left response Key</th>
+  <th id="tableHTML_header_4">Right response Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">1</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative practice Mapping A</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 1 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Negative</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">2</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative test Mapping A</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Object 1 + Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Negative</td>
+</tr>
+<tr>
+  <td id="tableHTML_column_1" style="text-align:center;">3</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative practice Mapping B</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 1 + Negative</td>
+</tr>
+<tr style="border-bottom:3px solid black;">
+  <td id="tableHTML_column_1" style="text-align:center;">4</td>
+  <td id="tableHTML_column_2" style="text-align:center;">Associative test Mapping B</td>
+  <td id="tableHTML_column_3" style="text-align:center;">Positive</td>
+  <td id="tableHTML_column_4" style="text-align:center;">Object 1 + Negative</td>
+</tr>
+</tbody>
+</table>
+<p>During the SC-IAT administration, respondents’ usually receive a feedback signaling whether the response was correct (a green “O”) or incorrect (a red “X”). A response time window (RTW) at 1,500ms is usually included in the administration, after which the stimulus on the screen disappears. Responses exceeding the RTW are considered non-response.</p>
+<p>As in the IAT, the <em>SC-IAT effect</em> results from the difference in respondents’ performance between the two associative conditions, under the assumption that the task will be easier in the condition consistent with the automatically activated association. A modification of the <em>D-score</em> has been proposed to interpret the SC-IAT effect, the <em>D</em> <span class="citation">(Karpinski and Steinman 2006)</span>. Only the two associative test blocks are considered for the computation of the <em>D</em>. Fast responses (responses under 350ms) are discarded, as well as non-responses (responses exceeding the rtw). Error responses are replaced by the average response time of the block increased by a standard penalty of 400ms. The difference between the average response time in the two contrasting conditions is then divided by the standard deviation of the correct trials in both conditions.</p>
+</div>
+<div id="the-raw_data-data-set" class="section level2">
+<h2>The <code>raw_data</code> data set</h2>
+<p>The <code>raw_data</code> contains the data from 162 respondents that completed a Chocolate IAT, one Milk Chocolate SC-IAT and one Dark Chocolate SC-IAT, along with their demographic information. Data will be published in <span class="citation">Epifania, Anselmi, and Robusto (n.d.)</span>.</p>
+<p>The IAT administration did not include a feedback strategy, hence only the <em>D-score</em> algorithms not including a built-in correction should be computed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># upload the data set</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(raw_data)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># explore the dataset</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">head</span>(raw_data)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   Participant latency correct trialcode                blockcode  response</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 1           4    2592       1  reminder practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 2           4     628       1  darkleft practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 3           4     808       1   badleft practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 4           4     783       1 goodright practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 5           4    2059       1   badleft practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 6           4    1114       1 goodright practice.sc_dark.Darkbad trial_imp</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">str</span>(raw_data)</span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; &#39;data.frame&#39;:    84726 obs. of  6 variables:</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt;  $ Participant: int  4 4 4 4 4 4 4 4 4 4 ...</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;  $ latency    : int  2592 628 808 783 2059 1114 608 663 771 676 ...</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;  $ correct    : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt;  $ trialcode  : Factor w/ 32 levels &quot;age&quot;,&quot;alert&quot;,..: 31 5 3 20 3 20 5 3 20 3 ...</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt;  $ blockcode  : Factor w/ 13 levels &quot;demo&quot;,&quot;practice.iat.Milkbad&quot;,..: 4 4 4 4 4 4 4 4 4 4 ...</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt;  $ response   : Factor w/ 46 levels &quot;&quot;,&quot;0&quot;,&quot;1&quot;,&quot;19&quot;,..: 43 43 43 43 43 43 43 43 43 43 ...</span></span></code></pre></div>
+<p>The data set contains respondents IDs (<code>Partcipant</code>), the response times in milliseconds for each trial (<code>latency</code>), the response accuracy (<code>correct</code>, 1 for correct responses and 0 for incorrect responses), the trials and blocks labels of the implicit measures (<code>trialcode</code> and <code>blockcode</code> labels, respectively), and the type of response (<code>response</code>, identifying the trials of the implicit measures or of the demographic information).</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-epifania2019">
+<p>Epifania, Ottavia M, Pasquale Anselmi, and Egidio Robusto. n.d. “A fairer comparison between the Implicit Association Test and the Single Category – Implicit Association Test.” <em>Testing, Psychometrics, and Methodology in Applied Psychology</em> in press.</p>
+</div>
+<div id="ref-gaw2017">
+<p>Gawronski, Bertram, Mike Morrison, Curtis E Phills, and Silvia Galdi. 2017. “Temporal Stability of Implicit and Explicit Measures: A Longitudinal Analysis.” <em>Personality and Social Psychology Bulletin</em> 43 (3): 300–312. <a href="https://doi.org/10.1177/0146167216684131">https://doi.org/10.1177/0146167216684131</a>.</p>
+</div>
+<div id="ref-Greenwald:1998">
+<p>Greenwald, Anthony G, Debbie E McGhee, and Jordan L K Schwartz. 1998. “Measuring Individual Differences in Implicit Cognition: The Implicit Association Test.” <em>Journal of Personality and Soclal Psychology</em> 74 (6): 1464–80. <a href="https://doi.org/10.1037/0022-3514.74.6.1464">https://doi.org/10.1037/0022-3514.74.6.1464</a>.</p>
+</div>
+<div id="ref-Greenwald:2003">
+<p>Greenwald, Anthony G, Brian A Nosek, and Mahzarin R Banaji. 2003. “Understanding and Using the Implicit Association Test: I. An Improved Scoring Algorithm.” <em>Journal of Personality and Social Psychology</em> 85 (2): 197–216. <a href="https://doi.org/10.1037/0022-3514.85.2.197">https://doi.org/10.1037/0022-3514.85.2.197</a>.</p>
+</div>
+<div id="ref-karp:2006">
+<p>Karpinski, Andrew, and Ross B. Steinman. 2006. “The Single Category Implicit association Test as a measure of implicit social cognition.” <em>Journal of Personality and Social Psychology</em> 91 (1): 16–32. <a href="https://doi.org/10.1037/0022-3514.91.1.16">https://doi.org/10.1037/0022-3514.91.1.16</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
