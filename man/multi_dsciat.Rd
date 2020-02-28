@@ -4,10 +4,17 @@
 \alias{multi_dsciat}
 \title{Plot SC-IATs scores}
 \usage{
-multi_dsciat(sciat1, sciat2, graph = c("density", "violin", "point"),
-  x_values = TRUE, gcolors = c("dark", "greens", "blues", "pinks"),
-  label_sc1 = "SC-IAT1", label_sc2 = "SC-IAT2",
-  label_y = "SC-IAT scores", dens_mean = T)
+multi_dsciat(
+  sciat1,
+  sciat2,
+  graph = c("density", "violin", "point"),
+  x_values = TRUE,
+  gcolors = c("dark", "greens", "blues", "pinks"),
+  label_sc1 = "SC-IAT1",
+  label_sc2 = "SC-IAT2",
+  label_y = "SC-IAT scores",
+  dens_mean = T
+)
 }
 \arguments{
 \item{sciat1}{Dataframe with class \code{dsciat}. Contains the \emph{D} for

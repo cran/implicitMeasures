@@ -4,7 +4,7 @@
 #'
 #' @param data Dataframe containing IAT data.
 #' @param sbj_id Column identifying participants' IDs. This variable can be a \code{character},
-#'                  \code{numeric}, of \code{factor}.
+#'                  \code{numeric}, or \code{factor}.
 #' @param block_id String. Column identifying
 #'                  IAT blocks. The \code{block_id} variable should be a
 #'                  \code{factor} with each level identifying an IAT block.
@@ -39,7 +39,7 @@
 #'     \code{mapA_practice}, \code{mapA_test}, \code{mapB_practice},
 #'     \code{mapB_test}. If you have specified the trials to eliminate through
 #'     \code{trial_eliminate}, \code{data_keep} will contain the already
-#'      cleaned dataset. This dataset should to the \code{computeD} function.}
+#'      cleaned dataset. This dataset should be passed to the \code{computeD} function.}
 #'     \item{\code{data_eliminate}}{Dataframe containing all the discarded
 #'      blocks and trials.}
 #'     \item{\code{data_demo}}{Dataframe containing demographic variables.
@@ -50,6 +50,7 @@
 #' @export
 #'
 #' @importFrom dplyr mutate
+#' @importFrom stringr str_trim
 #' @import stats
 #'
 #' @examples
@@ -89,6 +90,15 @@ clean_iat <- function(data, sbj_id = "participant",
   options_label <- c(mapA_practice, mapA_test, mapB_practice, mapB_test)
   names(options_label) <- c("mapA_practice", "mapA_test", "mapB_practice",
                             "mapB_test")
+  # check if the data are coming from spss ----
+  if (class(data)[1] == "tbl_df"){
+    data <- as.data.frame(data)
+  } else if (class(data)[1] == "list") {
+    data <- as.data.frame(data)
+    data[, block_id] <- stringr::str_trim(data[, block_id])
+  } else {
+    data <- data
+  }
   # save the colum names of the orginal dataset
   original_colnames <- c(colnames(data))
   # labels and columns check --------------------------
@@ -176,7 +186,6 @@ clean_iat <- function(data, sbj_id = "participant",
 
   # name the class of the clean IAT dataframe
   class(data$data_keep) <- append(class(data$data_keep), "iat_clean")
-
 
   if (!(is.null(trial_id))) {
     data <- list(data_keep = data$data_keep[!(data$data_keep[ , trial_id])

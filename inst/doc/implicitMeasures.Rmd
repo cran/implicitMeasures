@@ -47,7 +47,7 @@ The *IAT effect* is given by the difference between respondents' performance in 
 data.table(Dscore = paste0(rep("D", 6), 1:6), 
                       "Error treatment" = c(rep("Built-in", 2), "Mean + 2sd", "Mean + 600ms", 
                                             "Mean +2 sd", "Mean + 600ms"), 
-                      "Lower tail treatment" = c("No", "< 400ms", "No", "No", "< 400ms", "<4 00ms")) %>%
+                      "Lower tail treatment" = c("No", "< 400ms", "No", "No", "< 400ms", "< 400ms")) %>%
   tableHTML(rownames = F, widths = c(20, 210, 210), caption = "Table 2: D-score algorithm") %>%
   add_theme(theme = "scientific") %>%
   add_css_caption(css = list(c("font-weight", "text-align"), c("bold", "left")))
@@ -82,7 +82,7 @@ data.table(Block = 1:4,
   
 ```
 
-During the SC-IAT administration, respondents' usually receive a feedback signaling whether the response was correct (a green "O") or incorrect (a red "X"). A response time window (RTW) at 1,500ms is usually included in the administration, after which the stimulus on the screen disappears. Responses exceeding the RTW are considered non-response. 
+During the SC-IAT administration, respondents' usually receive a feedback signaling whether the response was correct (a green "O") or incorrect (a red "X"). A response time window (rtw) at 1,500ms is usually included in the administration, after which the stimulus on the screen disappears. Responses exceeding the RTW are considered non-response. 
 
 As in the IAT, the *SC-IAT effect* results from the difference in respondents' performance between the two associative conditions, under the assumption that the task will be easier in the condition consistent with the automatically activated association. A modification of the *D-score* has been proposed to interpret the SC-IAT effect, the *D* [@karp:2006]. Only the two associative test blocks are considered for the computation of the *D*. Fast responses (responses under 350ms) are discarded, as well as non-responses (responses exceeding the rtw). Error responses are replaced by the average response time of the block increased by a standard penalty of 400ms. The difference between the average response time in the two contrasting conditions is then divided by the standard deviation of the correct trials in both conditions. 
 
@@ -104,5 +104,9 @@ str(raw_data)
 ```
 
 The data set contains respondents IDs (`Partcipant`), the response times in milliseconds for each trial (`latency`), the response accuracy (`correct`, 1 for correct responses and 0 for incorrect responses), the trials and blocks labels of the implicit measures (`trialcode` and `blockcode` labels, respectively), and the type of response (`response`, identifying the trials of the implicit measures or of the demographic information).
+
+## Importing data from SPSS
+
+If you are importing data from SPSS, no worries. Both `clean_iat()` and `clean_sciat()` functions recognize whether the data set is coming from SPSS and will take care of that. For importing the data set from SPSS, you can use either `haven::read_sav("dataset.sav")` or `foreign::read.spss("dataset.sav")`. Please leave all the defaults settings of these function unaltered. 
 
 # References
