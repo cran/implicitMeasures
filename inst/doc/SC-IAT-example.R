@@ -1,7 +1,10 @@
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+#  fig.path = "",
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
 )
 
 ## ----setup--------------------------------------------------------------------
@@ -43,59 +46,56 @@ head(sciat1)
 head(demo_data)
 
 ## -----------------------------------------------------------------------------
-# Compute the D for the first SC-IAT
+# Compute the D-score for the first SC-IAT
  d_sciat1 <- Dsciat(sciat1,
                   mappingA = "test.sc_dark.Darkbad",
                   mappingB = "test.sc_dark.Darkgood",
                   non_response = "alert")
 
-# dataframe containing the SC-IAT D of the of the first SC-IAT
+# dataframe containing the SC-IAT D-score of the of the first SC-IAT
 str(d_sciat1) 
  
-# Compute D for the second SC-IAT
+# Compute D-score for the second SC-IAT
  d_sciat2 <- Dsciat(sciat2,
                   mappingA = "test.sc_milk.Milkbad",
                   mappingB = "test.sc_milk.Milkgood",
                   non_response = "alert")
  
- # dataframe containing the SC-IAT D of the of the second SC-IAT
+ # dataframe containing the SC-IAT D-score of the of the second SC-IAT
  head(d_sciat2)
 
 
 ## -----------------------------------------------------------------------------
-descript_d(d_sciat1)
+descript_d(d_sciat1) # Data frame containing SC-IAT D-scores
 
 ## -----------------------------------------------------------------------------
-descript_d(d_sciat2, latex = TRUE)
+descript_d(d_sciat2, # Data frame containing IAT D-scores
+           latex = TRUE) # obtain the code for latex tables
 
-## ----fig.align='center', fig.width=6------------------------------------------
- d_plot(d_sciat1)
-# change respondents order, remove x-values
-d_plot(d_sciat1, order_sbj = "D-increasing", 
-       x_values = FALSE)
-# change respondents order, remove x-values, add descriptive statistics
-d_plot(d_sciat1, order_sbj = "D-increasing", 
-       x_values = FALSE, include_stats = TRUE)
+## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_plot()"----
+ d_plot(d_sciat1) # Data frame containing SC-IAT D-scores
 
-## ----fig.align='center', fig.width=6------------------------------------------
-d_distr(d_sciat1)
-# change the number of bins
-d_distr(d_sciat1, n_bin = 120)
-# change graph and add descriptive statistics
-d_distr(d_sciat1, graph = "density", include_stats = TRUE)
-#change graph and add descriptive statistics
-d_distr(d_sciat1, graph = "violin", include_stats = TRUE)
+## ----scpointSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:scpointSettings} Function d_plot() with settings change"----
+d_plot(d_sciat1, # dataframe containing SC-IAT D-scores
+       order_sbj = "D-increasing", # change respondents' order
+       x_values = FALSE,  # remove respondents' labels
+       include_stats = TRUE, # include descriptive statistics
+       col_point = "aquamarine3") # change points color
 
-## ----fig.align='center', fig.width=6------------------------------------------
-multi_dsciat(d_sciat1, d_sciat2)
-# remove mean adn change color
-multi_dsciat(d_sciat1, d_sciat2, dens_mean = FALSE, 
-       gcolors = "pinks")
-# change graph
-multi_dsciat(d_sciat1, d_sciat2, graph = "violin")
-# change graph and labels for the two SC-IATs, remove x-values
-multi_dsciat(d_sciat1, d_sciat2, graph = "point", 
-       x_values = FALSE, gcolors = "greens",
-       label_sc1 = "Dark SC-IAT", 
-       label_sc2 = "Milk SC-IAT")
+## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_distr() function"----
+d_distr(d_sciat1) # Data frame containing SC-IAT D-scores
+
+## ----fig.align='center', fig.width=6, fig.cap="Default results representation of function multi_dsciat()"----
+multi_dsciat(d_sciat1, # dataframe containing the results of the first SC-IAT
+             d_sciat2) # dataframe containing the results of the second SC-IAT
+
+
+## ----fig.align='center', fig.width=6, fig.cap="Results representation of function multi_dsciat() with settings change"----
+multi_dsciat(d_sciat1, # dataframe containing the results of the first SC-IAT
+             d_sciat2, # dataframe containing the results of the second SC-IAT
+             graph = "point", # change graph type
+       x_values = FALSE, # take out x values
+       gcolors = "greens", # change color
+       label_sc1 = "Dark SC-IAT",  # change label first SC-IAT
+       label_sc2 = "Milk SC-IAT") # change label second SC-IAT
 

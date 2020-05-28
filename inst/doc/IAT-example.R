@@ -1,7 +1,10 @@
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  #fig.path = "",
+  warning = FALSE, 
+  message = FALSE
 )
 
 ## ----setup--------------------------------------------------------------------
@@ -40,40 +43,43 @@ dscore <- computeD(iat_data, Dscore = "d3")
 str(dscore)
 
 ## -----------------------------------------------------------------------------
-descript_d(dscore)
+descript_d(dscore) # Data frame containing IAT D-scores
 
 ## -----------------------------------------------------------------------------
-descript_d(dscore, latex = T)
+descript_d(dscore, # Data frame containing IAT D-scores
+           latex = TRUE) # obtain the code for latex tables
 
 ## -----------------------------------------------------------------------------
 IATrel(dscore)
 
-## ---- fig.align='center', fig.width=6-----------------------------------------
-d_plot(dscore)
-# change respondents order, remove x-values
-d_plot(dscore, order_sbj = "D-increasing", 
-       x_values = FALSE)
-# change respondents order, remove x-values, and add decsriptive statistics
-d_plot(dscore, order_sbj = "D-decreasing", 
-       x_values = FALSE, include_stats = TRUE)
+## ---- fig.align='center', fig.width=6, fig.cap="d_plot() function with default settings"----
+d_plot(dscore) # Data frame containing IAT D-scores
 
-## ---- fig.align='center', fig.width=6-----------------------------------------
-d_distr(dscore)
-# change the number of bins
-d_distr(dscore, n_bin = 120)
-# change graph and add descriptive statistics
-d_distr(dscore, graph = "density", include_stats = TRUE)
-# change graph and add descriptive statistics
-d_distr(dscore, graph = "violin", include_stats = TRUE)
+## ---- fig.align='center', fig.width=6, fig.cap="d_plot() function with   settings change"----
+d_plot(dscore, # dataframe containing IAT D-scores
+       order_sbj = "D-decreasing", # change respondents order
+       x_values = FALSE, # remove respodents' labels
+       include_stats = TRUE, # include descriptive statistics
+       col_point = "lightskyblue") # change points color
+
+## ---- fig.align='center', fig.width=6, fig.cap="d_distr() function with default settings"----
+d_distr(dscore) # dataframe containing IAT Dscores
+
+## ----sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_distr() function with settings change"----
+d_distr(dscore, # dataframe containing IAT Dscores
+        graph = "violin", # change graphical representation
+        include_stats = TRUE) # include descriptive statistics
 
 ## -----------------------------------------------------------------------------
-multi_scores <- multi_dscore(iat_data, ds = "error-inflation")
+multi_scores <- multi_dscore(iat_data, # object with class "iat_clean"
+                             ds = "error-inflation") # string specifying the 
+                                            # algorithms to compute
 
 ## -----------------------------------------------------------------------------
 multi_d <- multi_scores[[1]]
 head(multi_d)
 str(multi_d)
 
-## ----fig.align='center', fig.width=6------------------------------------------
+## ---- fig.align='center', fig.width=6, fig.cap="Multiple D-scores representation"----
 multi_scores[[2]]
 
