@@ -37,9 +37,9 @@
 #'       Mapping A.}
 #'  \item{\code{mean_test_MappingB}}{Mean response time in test block of
 #'       Mapping B.}
-#'  \item{\code{d_practice_dX}}{\emph{D-score}s computed on the practice blocks.
+#'  \item{\code{d_practice_dX}}{\emph{D-score}s compute_iat on the practice blocks.
 #'      The X stands for the selected \emph{D-score} procedure.}
-#'  \item{\code{d_test_dX}}{\emph{D-score}s computed on the test blocks. The X
+#'  \item{\code{d_test_dX}}{\emph{D-score}s compute_iat on the test blocks. The X
 #'      stands for the selected \emph{D-score} procedure.}
 #'  \item{\code{dscore_dX}}{The average \emph{D-score} for the practice and test
 #'     \emph{D-score}s. The X stands for the selected \emph{D-score} procedure.}
@@ -71,13 +71,13 @@
 #'                           trial_demo = "demo")
 #'   iat_data <- iat_cleandata[[1]]
 #' # calculate D-score
-#'   iat_dscore <- computeD(iat_data,
+#'   iat_dscore <- compute_iat(iat_data,
 #'                          Dscore =  "d2")
-computeD <- function(data,
+compute_iat <- function(data,
                      Dscore = c("d1","d2","d3","d4", "d5", "d6")){
   # check the class of the dataset (must be "iat_clean) -----------------------
   if (is.na(class(data)[2]) | class(data)[2] != "iat_clean"){
-    stop('use the clean_iat function to prepare the dataset for the computeD
+    stop('use the clean_iat function to prepare the dataset for the compute_iat
          function')
   }
   # define the dscore options
@@ -298,7 +298,7 @@ computeD <- function(data,
                            by ="participant")
     # compute the proprortion
     descript_data$nslow10000 <- round(descript_data$nslow10000 /
-                                      descript_data$n_trial, 2)
+                                        descript_data$n_trial, 2)
   }
 
   # number of slow trials < 400ms
@@ -315,7 +315,7 @@ computeD <- function(data,
                            by = "participant")
     # compute the proportion
     descript_data$nfast400 <- round(descript_data$nfast400 /
-                                    descript_data$n_trial, 2)
+                                      descript_data$n_trial, 2)
   }
 
   # number of slow trials < 300ms
@@ -333,7 +333,7 @@ computeD <- function(data,
                            by ="participant")
     # compute the proportion
     descript_data$nfast300 <- round(descript_data$nfast300 /
-                                    descript_data$n_trial, 2)
+                                      descript_data$n_trial, 2)
   }
 
   # create dataset on accuracy performance
@@ -406,23 +406,23 @@ computeD <- function(data,
                                "mean_practice_MappingB")
   sbj_data_wide$diff_practice <- with(sbj_data_wide,
                                       mean_practice_MappingB -
-                                      mean_practice_MappingA)
+                                        mean_practice_MappingA)
   sbj_data_wide$diff_test <- with(sbj_data_wide,
                                   mean_test_MappingB -
-                                  mean_test_MappingA)
+                                    mean_test_MappingA)
   sbj_data_wide$d_practice <- with(sbj_data_wide,
                                    diff_practice / sqrt(variance_practice))
   sbj_data_wide$d_test <- with(sbj_data_wide,
                                diff_test/sqrt(variance_test))
   sbj_data_wide$dscore <- with(sbj_data_wide,
                                (rowSums(
-                                sbj_data_wide[ , c("d_practice","d_test")])) / 2)
+                                 sbj_data_wide[ , c("d_practice","d_test")])) / 2)
   sbj_data_wide <- sbj_data_wide[ , c("participant", "mean_practice_MappingA",
-                                     "mean_test_MappingA",
-                                     "mean_practice_MappingB",
-                                     "mean_test_MappingB",
-                                     "d_practice", "d_test",
-                                     "dscore")]
+                                      "mean_test_MappingA",
+                                      "mean_practice_MappingB",
+                                      "mean_test_MappingB",
+                                      "d_practice", "d_test",
+                                      "dscore")]
   colnames(sbj_data_wide)[6:8] <- paste(colnames(sbj_data_wide)[6:8],
                                         d, sep = "_")
   Dscore_data <- merge(descript_data,

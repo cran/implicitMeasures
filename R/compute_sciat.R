@@ -1,8 +1,8 @@
-#' Compute D for the SC-IAT
+#' Compute the D-score for the SC-IAT
 #'
-#' Compute D for the SC-IAT.
+#' Compute the D-score for the SC-IAT.
 #'
-#' @param data Dataframe with class \code{clean_sciat}.
+#' @param data Data frame with class \code{clean_sciat}.
 #' @param mappingA String. Label identifying the mapping A of the SC-IAT in the
 #'                    \code{block_id} variable.
 #' @param mappingB String. Label identifying the mapping B of the SC-IAT in the
@@ -11,7 +11,7 @@
 #'                      non-responses, a.k.a responses beyond the response time
 #'                      window, as it was specified in \code{trial_id} (if included).
 #'
-#' @return A dataframe with class \code{dsciat}. The number of rows of the
+#' @return A dataframe with class \code{compute_sciat}. The number of rows of the
 #'         dataframe corresponds to the total number of participants. Variables
 #'         are defined as follows (the values are specific for each
 #'          participant):
@@ -64,7 +64,7 @@
 #'                          trial_eliminate = c("reminder",
 #'                                              "reminder1"))
 #'  sciat1 <- sciat_data[[1]] # compute D for the first SC-IAT
-#'  d_sciat1 <- Dsciat(sciat1,
+#'  d_sciat1 <- compute_sciat(sciat1,
 #'                     mappingA = "test.sc_dark.Darkbad",
 #'                     mappingB = "test.sc_dark.Darkgood",
 #'                     non_response = "alert")
@@ -72,13 +72,13 @@
 #'                 # first SC-IAT
 #'
 #'  sciat2 <- sciat_data[[2]] # Compute D for the second SC-IAT
-#'  d_sciat2 <- Dsciat(sciat2,
+#'  d_sciat2 <- compute_sciat(sciat2,
 #'                     mappingA = "test.sc_milk.Milkbad",
 #'                     mappingB = "test.sc_milk.Milkgood",
 #'                     non_response = "alert")
 #'  head(d_sciat2)
 
-Dsciat <- function(data,
+compute_sciat <- function(data,
                    mappingA = "mappingA",
                    mappingB = "mappingB",
                    non_response = NULL){
@@ -99,7 +99,7 @@ Dsciat <- function(data,
 
   # preparare dataset --------------------------
   data$condition <- ifelse(data[ , "block"] == options_label[1],
-                                       "mappingA", "mappingB")
+                           "mappingA", "mappingB")
   data[,"participant"] <- as.character(data[ , "participant"])
   # create order of presentation variable
   condition_order <- aggregate(condition ~ participant,
@@ -112,8 +112,8 @@ Dsciat <- function(data,
   condition_order <- condition_order[, c("participant", "cond_ord")]
   condition_order$cond_ord <- with(condition_order,
                                    ifelse(cond_ord == "MappingA_MappingB",
-                                     "MappingA_First",
-                                     "MappingB_First"))
+                                          "MappingA_First",
+                                          "MappingB_First"))
   condition_order$legendMappingA <- mappingA
   condition_order$legendMappingB <- mappingB
 
@@ -166,7 +166,7 @@ Dsciat <- function(data,
                             timevar = "condition",
                             direction = "wide")
   acc_clean_wide$out_accuracy <- ifelse(acc_clean_wide$correct.mappingA < .75 |
-                                        acc_clean_wide$correct.mappingB < .75,
+                                          acc_clean_wide$correct.mappingB < .75,
                                         "out", "keep")
   data <- merge(data,
                 acc_clean_wide,
@@ -203,10 +203,10 @@ Dsciat <- function(data,
                            nfast400 = (table_400[2, ]))
     # merge with the descript data
     descript_data <- merge(descript_data, nfast400,
-                          by ="participant")
+                           by ="participant")
     # compute the proportion
     descript_data$nfast400 <- round(descript_data$nfast400 /
-                                    descript_data$n_trial, 2)
+                                      descript_data$n_trial, 2)
   }
   # number of slow trials (< 300ms)
   if (dim(table_350)[1] == 1){
@@ -299,18 +299,18 @@ Dsciat <- function(data,
   descript_data <- merge(descript_data,
                          mean_condition,
                          by = "participant")
-  Dsciat_data <- merge(descript_data,
+  dsciat_data <- merge(descript_data,
                        condition_order,
                        by = "participant")
-  Dsciat_data <- merge(Dsciat_data, d_sciat, by = "participant")
-  Dsciat_data <- Dsciat_data[, c("participant", "n_trial", "no_response",
+  dsciat_data <- merge(dsciat_data, d_sciat, by = "participant")
+  dsciat_data <- dsciat_data[, c("participant", "n_trial", "no_response",
                                  "nslow10000","nfast400", "nfast350",
                                  "out_accuracy", "accuracy.mappingA",
                                  "accuracy.mappingB", "RT_mean.mappingA",
                                  "RT_mean.mappingB", "cond_ord",
                                  "legendMappingA", "legendMappingB",
                                  "d_sciat")]
-  class(Dsciat_data) <- append(class(Dsciat_data), "dsciat")
+  class(dsciat_data) <- append(class(dsciat_data), "dsciat")
   # results --------------------------
-  return(Dsciat_data)
+  return(dsciat_data)
 }

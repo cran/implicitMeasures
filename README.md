@@ -4,9 +4,9 @@
 # implicitMeasures
 
 R package for computing different Implicit Measures scores
-<!-- badges: start --> [Travis build
-status](https://travis-ci.org/OttaviaE/implicitMeasures.svg?branch=master)\](<https://travis-ci.org/OttaviaE/implicitMeasures>)
-<!-- badges: end -->
+
+[![Build
+Status](https://travis-ci.org/OttaviaE/implicitMeasures.svg?branch=master)](https://travis-ci.org/OttaviaE/implicitMeasures)
 
 ## Aim and Overview
 
@@ -17,30 +17,30 @@ Implicit Association Test (SC-IAT; Karpinski and Steinman 2006).
 
 Six different algorithms for the computation of the IAT effect, the
 so-called *D-score*, are available (Greenwald, Nosek, and Banaji 2003).
-The six different algorithms differentiate themselves for the treatment
-of the extreme fast responses and for the strategy used for replacing
-the error responses. Different mistakes can be made during the
-computation of the *D-score*, which can raise replicability issues of
-the results. On top of that, many researchers fail to report the exact
-algorithm they have used for computing the *D-score*, raising again
-replicability issues (Ellithorpe, Ewoldsen, and Velez 2015).
+The six algorithms differentiate themselves for the treatment of the
+extreme fast responses and for the strategy used for replacing the error
+responses. Different mistakes can be made during the computation of the
+*D-score*, which can raise replicability issues of the results. On top
+of that, many researchers fail to report the exact algorithm they have
+used for computing the *D-score*, raising again replicability issues
+(Ellithorpe, Ewoldsen, and Velez 2015).
 
 `implicitMeasures` includes the following functions:
 
   - `clean_iat()`: Prepare and clean IAT data.
   - `clean_sciat()`: Prepare and clean SC-IAT data.
-  - `computeD()`: Compute IAT *D-score*.
-  - `Dsciat()`: Compute SC-IAT *D-score*.
+  - `compute_iat()`: Compute IAT *D-score*.
+  - `compute_sciat()`: Compute SC-IAT *D-score*.
   - `descript_d()`: Descriptive table of *D-score*s (also in LaTeX
     format).
-  - `d_distr()`: Plot IAT or SC-IAT scores (distribution).
-  - `d_plot()`: Plot IAT or SC-IAT scores (points).
+  - `d_density()`: Plot IAT or SC-IAT scores (distribution).
+  - `d_point()`: Plot IAT or SC-IAT scores (points).
   - `multi_dscore()`: Compute and plot multiple IAT *D-score*s.
   - `multi_dsciat()`: Plot SC-IAT *D-score*s.
-  - `IATrel()`: computes the IAT reliability (Gawronski et al. 2017)
+  - `IAT_rel()`: computes the IAT reliability (Gawronski et al. 2017)
 
 All the functions for graphically representing the results are based on
-`ggplot2` (Wickham 2016).
+`ggplot2` (Wickham 2016), and can be further customized by the users.
 
 ## Installation
 
@@ -54,7 +54,7 @@ install.packages("implicitMeasures")
 and the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+# install.packages("devtools") # un-comment to install devtools
 devtools::install_github("OttaviaE/implicitMeasures")
 ```
 
@@ -65,10 +65,10 @@ This is a basic example which shows you how to compute the IAT
 
 ``` r
 library(implicitMeasures)
-## load the raw_data dataframe
+# load the raw_data dataframe
 data("raw_data")
 
-## prepare the dataset for the computation
+# prepare the dataset for the computation
 iat_data <- clean_iat(raw_data, 
                           sbj_id = "Participant",
                           block_id = "blockcode",
@@ -81,14 +81,14 @@ iat_data <- clean_iat(raw_data,
                           trial_id = "trialcode",
                           trial_eliminate = c("reminder", "reminder1"))
 
-## store the dataset for computing the D-score
+# store the dataset for computing the D-score
 iat <- iat_data[[1]]
 
-## Compute the D-score
-dscore <- computeD(iat, D = "d3")
+# Compute the D-score
+dscore <- compute_iat(iat, D = "d3")
 ```
 
-`computeD()` results in a data frame with class `dscore`. This data
+`compute_iat()` results in a data frame with class `dscore`. This data
 frame can be passed to other functions, for example for plotting the
 results, either at the individual level:
 
@@ -135,6 +135,12 @@ please post a minimal reproducible example on
 questions and other discussions, you can contact the author and
 maintainer of the package at <otta.epifania@gmail.com>.
 
+## Contributing to `implicitMeasures`
+
+If you want to contribute to `implicitMeasures`, by all means\! You can
+open a new branch on <https://github.com/OttaviaE/implicitMeasures>,
+modify the code, and submit your pull request for added features.
+
 # References
 
 <div id="refs" class="references">
@@ -161,7 +167,7 @@ Longitudinal Analysis.” *Personality and Social Psychology Bulletin* 43
 
 Greenwald, Anthony G, Debbie E McGhee, and Jordan L K Schwartz. 1998.
 “Measuring Individual Differences in Implicit Cognition: The Implicit
-Association Test.” *Journal of Personality and Soclal Psychology* 74
+Association Test.” *Journal of Personality and Social Psychology* 74
 (6): 1464–80. <https://doi.org/10.1037/0022-3514.74.6.1464>.
 
 </div>

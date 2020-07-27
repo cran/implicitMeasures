@@ -1,4 +1,4 @@
-test_that("computeD recognize the rigth class", {
+test_that("compute_iat recognize the rigth class", {
   data("raw_data")
   sciat_data <- clean_sciat(raw_data, sbj_id = "Participant",
                             block_id = "blockcode",
@@ -13,11 +13,11 @@ test_that("computeD recognize the rigth class", {
                                                 "reminder1"),
                             demo_id = "blockcode",
                             trial_demo = "demo")
-  expect_error(computeD(raw_data), Dscore = "d1")
-  expect_error(computeD(sciat_data[[1]]), Dscore = "d2")
+  expect_error(compute_iat(raw_data), Dscore = "d1")
+  expect_error(compute_iat(sciat_data[[1]]), Dscore = "d2")
 })
 
-test_that("computeD stops if Dscore is not specified", {
+test_that("compute_iat stops if Dscore is not specified", {
   data("raw_data")
   iat_cleandata <- clean_iat(raw_data, sbj_id = "Participant",
                              block_id = "blockcode",
@@ -29,10 +29,10 @@ test_that("computeD stops if Dscore is not specified", {
                              accuracy_id = "correct",
                              trial_id = "trialcode",
                              trial_eliminate = c("reminder", "reminder1"))
-  expect_error(computeD(iat_cleandata[[1]]))
+  expect_error(compute_iat(iat_cleandata[[1]]))
 })
 
-test_that("computeD produce a dataframe of class dscore (all scores)", {
+test_that("compute_iat produce a dataframe of class dscore (all scores)", {
   skip_on_cran()
   data("raw_data")
   iat_cleandata <- clean_iat(raw_data, sbj_id = "Participant",
@@ -50,13 +50,13 @@ test_that("computeD produce a dataframe of class dscore (all scores)", {
   scores <- list()
 
   for(i in 1:length(ds)){
-    scores[[i]] <- computeD(iat_cleandata[[1]], Dscore = ds[i])
+    scores[[i]] <- compute_iat(iat_cleandata[[1]], Dscore = ds[i])
     expect_equal(class(scores[[i]])[2], "dscore")
   }
 })
 
 
-test_that("computeD produce a dataframe with the same number of sbjs for all", {
+test_that("compute_iat produce a dataframe with the same number of sbjs for all", {
   skip_on_cran()
   data("raw_data")
   iat_cleandata <- clean_iat(raw_data, sbj_id = "Participant",
@@ -74,7 +74,7 @@ test_that("computeD produce a dataframe with the same number of sbjs for all", {
   scores <- list()
 
   for(i in 1:length(ds)){
-    scores[[i]] <- computeD(iat_cleandata[[1]], Dscore = ds[i])
+    scores[[i]] <- compute_iat(iat_cleandata[[1]], Dscore = ds[i])
     expect_equal(nrow(scores[[i]]), length(unique(iat_cleandata[[1]]$participant)) )
   }
 })

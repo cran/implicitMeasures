@@ -30,23 +30,23 @@
 #'                           trial_demo = "demo")
 #'   iat_data <- iat_cleandata[[1]]
 #' # calculate D-score
-#'   iat_dscore <- computeD(iat_data,
+#'   iat_dscore <- compute_iat(iat_data,
 #'                          Dscore =  "d2")
-#'   IATrel(iat_dscore)
-IATrel <- function(data){
+#'   IAT_rel(iat_dscore)
+IAT_rel <- function(data){
   # check dataset class --------------------------
   if(is.na(class(data)[2]) | class(data)[2] != "dscore"){
     stop("data is not an object of class dscore")
   }
   # compute realiability --------------------------
-  IATreliability <- list(rel = round(
-                              cor(data[ , c(grep("d_practice", colnames(data)),
-                                            grep("d_test",
-                                                 colnames(data)))])[2, 1],
-                              2),
-                         number = round(nrow(data)))
-  names(IATreliability) <- c("Test-pratice Reliability",
+  IAT_reliability <- list(rel = round(
+    cor(data[ , c(grep("d_practice", colnames(data)),
+                  grep("d_test",
+                       colnames(data)))])[2, 1],
+    2),
+    number = round(nrow(data)))
+  names(IAT_reliability) <- c("Test-pratice Reliability",
                              "Number of participants")
-  class(IATreliability) <- "IATrel"
-  return(IATreliability)
+  class(IAT_reliability) <- "IAT_rel"
+  return(IAT_reliability)
 }

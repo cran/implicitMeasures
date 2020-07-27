@@ -47,7 +47,7 @@ head(demo_data)
 
 ## -----------------------------------------------------------------------------
 # Compute the D-score for the first SC-IAT
- d_sciat1 <- Dsciat(sciat1,
+ d_sciat1 <- compute_sciat(sciat1,
                   mappingA = "test.sc_dark.Darkbad",
                   mappingB = "test.sc_dark.Darkgood",
                   non_response = "alert")
@@ -56,7 +56,7 @@ head(demo_data)
 str(d_sciat1) 
  
 # Compute D-score for the second SC-IAT
- d_sciat2 <- Dsciat(sciat2,
+ d_sciat2 <- compute_sciat(sciat2,
                   mappingA = "test.sc_milk.Milkbad",
                   mappingB = "test.sc_milk.Milkgood",
                   non_response = "alert")
@@ -72,18 +72,23 @@ descript_d(d_sciat1) # Data frame containing SC-IAT D-scores
 descript_d(d_sciat2, # Data frame containing IAT D-scores
            latex = TRUE) # obtain the code for latex tables
 
-## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_plot()"----
- d_plot(d_sciat1) # Data frame containing SC-IAT D-scores
+## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_point()"----
+ d_point(d_sciat1) # Data frame containing SC-IAT D-scores
 
-## ----scpointSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:scpointSettings} Function d_plot() with settings change"----
-d_plot(d_sciat1, # dataframe containing SC-IAT D-scores
+## ----scpointSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:scpointSettings} Function d_point() with settings change"----
+d_point(d_sciat1, # dataframe containing SC-IAT D-scores
        order_sbj = "D-increasing", # change respondents' order
        x_values = FALSE,  # remove respondents' labels
        include_stats = TRUE, # include descriptive statistics
        col_point = "aquamarine3") # change points color
 
-## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_distr() function"----
-d_distr(d_sciat1) # Data frame containing SC-IAT D-scores
+## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_density() function"----
+d_density(d_sciat1) # Data frame containing SC-IAT D-scores
+
+## ----sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_density() function with settings change"----
+d_density(d_sciat1, # dataframe containing IAT Dscores
+        graph = "density", # change graphical representation
+        include_stats = TRUE) # include descriptive statistics
 
 ## ----fig.align='center', fig.width=6, fig.cap="Default results representation of function multi_dsciat()"----
 multi_dsciat(d_sciat1, # dataframe containing the results of the first SC-IAT

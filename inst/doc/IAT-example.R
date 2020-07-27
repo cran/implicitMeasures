@@ -39,7 +39,7 @@ iat_data <- iat_cleandata[[1]]
 head(iat_data)
 
 ## -----------------------------------------------------------------------------
-dscore <- computeD(iat_data, Dscore = "d3")
+dscore <- compute_iat(iat_data, Dscore = "d3")
 str(dscore)
 
 ## -----------------------------------------------------------------------------
@@ -50,23 +50,23 @@ descript_d(dscore, # Data frame containing IAT D-scores
            latex = TRUE) # obtain the code for latex tables
 
 ## -----------------------------------------------------------------------------
-IATrel(dscore)
+IAT_rel(dscore)
 
-## ---- fig.align='center', fig.width=6, fig.cap="d_plot() function with default settings"----
-d_plot(dscore) # Data frame containing IAT D-scores
+## ---- fig.align='center', fig.width=6, fig.cap="d_point() function with default settings"----
+d_point(dscore) # Data frame containing IAT D-scores
 
-## ---- fig.align='center', fig.width=6, fig.cap="d_plot() function with   settings change"----
-d_plot(dscore, # dataframe containing IAT D-scores
+## ---- fig.align='center', fig.width=6, fig.cap="d_point() function with   settings change"----
+d_point(dscore, # dataframe containing IAT D-scores
        order_sbj = "D-decreasing", # change respondents order
        x_values = FALSE, # remove respodents' labels
        include_stats = TRUE, # include descriptive statistics
        col_point = "lightskyblue") # change points color
 
-## ---- fig.align='center', fig.width=6, fig.cap="d_distr() function with default settings"----
-d_distr(dscore) # dataframe containing IAT Dscores
+## ---- fig.align='center', fig.width=6, fig.cap="d_density() function with default settings"----
+d_density(dscore) # dataframe containing IAT Dscores
 
-## ----sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_distr() function with settings change"----
-d_distr(dscore, # dataframe containing IAT Dscores
+## ----sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_density() function with settings change"----
+d_density(dscore, # dataframe containing IAT Dscores
         graph = "violin", # change graphical representation
         include_stats = TRUE) # include descriptive statistics
 

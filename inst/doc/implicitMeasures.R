@@ -32,7 +32,7 @@ data.table(Dscore = paste0(rep("D", 6), 1:6),
 
 
 ## ---- echo = F----------------------------------------------------------------
-data.table(Block = paste("B",1:4), 
+data.table(Block = paste0("B",1:4), 
            Function = paste(rep(c("Associative practice", "Associative test"), 2), 
                             rep(c("Mapping A", "Mapping B"), c(2,2))),
            "Left response Key" = c(rep("Object 1 + Positive", 2), rep("Positive", 2)), 

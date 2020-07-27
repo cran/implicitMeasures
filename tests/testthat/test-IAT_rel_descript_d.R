@@ -1,6 +1,6 @@
-# Test IATrel function #####
+# Test IAT_rel function #####
 
-test_that("IATrel throws an error when the wrong class is passed",{
+test_that("IAT_rel throws an error when the wrong class is passed",{
   data("raw_data") # import data
   iat_cleandata <- clean_iat(raw_data, sbj_id = "Participant",
                              block_id = "blockcode",
@@ -14,10 +14,10 @@ test_that("IATrel throws an error when the wrong class is passed",{
                              trial_eliminate = c("reminder", "reminder1"),
                              demo_id = "blockcode",
                              trial_demo = "demo")
-  expect_error(IATrel(iat_cleandata[3]))
+  expect_error(IAT_rel(iat_cleandata[3]))
 })
 
-test_that("IATrel results in a list of 2 elements with class IATrel", {
+test_that("IAT_rel results in a list of 2 elements with class IAT_rel", {
   data("raw_data") # import data
   iat_cleandata <- clean_iat(raw_data, sbj_id = "Participant",
                              block_id = "blockcode",
@@ -33,10 +33,10 @@ test_that("IATrel results in a list of 2 elements with class IATrel", {
                              trial_demo = "demo")
   iat_data <- iat_cleandata[[1]]
   # calculate D-score
-  iat_dscore <- computeD(iat_data,
+  iat_dscore <- compute_iat(iat_data,
                          Dscore =  "d2")
-  expect_output(str(IATrel(iat_dscore)), "List of 2")
-  expect_equal(class(IATrel(iat_dscore)), "IATrel")
+  expect_output(str(IAT_rel(iat_dscore)), "List of 2")
+  expect_equal(class(IAT_rel(iat_dscore)), "IAT_rel")
 })
 
 
@@ -58,7 +58,7 @@ test_that("descript_d recognizies the class of the object for the SC-IAT",
                                                           "reminder1"))
 
             sciat1 <- sciat_data[[1]] # compute D for the first SC-IAT
-            d_sciat1 <- Dsciat(sciat1,
+            d_sciat1 <- compute_sciat(sciat1,
                                mappingA = "test.sc_dark.Darkbad",
                                mappingB = "test.sc_dark.Darkgood",
                                non_response = "alert")
