@@ -1,7 +1,7 @@
 Package: implicitMeasures
 Type: Package
 Title: Compute Scores for Different Implicit Measures
-Version: 0.2.0
+Version: 0.2.1
 Author: Ottavia M. Epifania [aut, cre],
     Pasquale Anselmi [ctb], 
     Egidio Robusto [ctb]
@@ -24,6 +24,6 @@ Suggests: testthat (>= 2.1.0), knitr, rmarkdown, tableHTML, data.table,
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2020-07-27 14:06:42 UTC; huawei
+Packaged: 2022-02-15 17:40:54 UTC; huawei
 Repository: CRAN
-Date/Publication: 2020-07-27 14:30:02 UTC
+Date/Publication: 2022-02-16 13:40:13 UTC

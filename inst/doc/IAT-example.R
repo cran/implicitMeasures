@@ -53,7 +53,7 @@ descript_d(dscore, # Data frame containing IAT D-scores
 IAT_rel(dscore)
 
 ## ---- fig.align='center', fig.width=6, fig.cap="d_point() function with default settings"----
-d_point(dscore) # Data frame containing IAT D-scores
+d_point(dscore) # Data frame containing IAT D scores
 
 ## ---- fig.align='center', fig.width=6, fig.cap="d_point() function with   settings change"----
 d_point(dscore, # dataframe containing IAT D-scores
