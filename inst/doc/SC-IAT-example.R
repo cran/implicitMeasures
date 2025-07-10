@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
 #  fig.path = "",
@@ -46,44 +46,44 @@ head(sciat1)
 head(demo_data)
 
 ## -----------------------------------------------------------------------------
-# Compute the D-score for the first SC-IAT
+# Compute the D score for the first SC-IAT
  d_sciat1 <- compute_sciat(sciat1,
                   mappingA = "test.sc_dark.Darkbad",
                   mappingB = "test.sc_dark.Darkgood",
                   non_response = "alert")
 
-# dataframe containing the SC-IAT D-score of the of the first SC-IAT
+# dataframe containing the SC-IAT D score of the of the first SC-IAT
 str(d_sciat1) 
  
-# Compute D-score for the second SC-IAT
+# Compute D score for the second SC-IAT
  d_sciat2 <- compute_sciat(sciat2,
                   mappingA = "test.sc_milk.Milkbad",
                   mappingB = "test.sc_milk.Milkgood",
                   non_response = "alert")
  
- # dataframe containing the SC-IAT D-score of the of the second SC-IAT
+ # dataframe containing the SC-IAT D score of the of the second SC-IAT
  head(d_sciat2)
 
 
 ## -----------------------------------------------------------------------------
-descript_d(d_sciat1) # Data frame containing SC-IAT D-scores
+descript_d(d_sciat1) # Data frame containing SC-IAT D scores
 
 ## -----------------------------------------------------------------------------
-descript_d(d_sciat2, # Data frame containing IAT D-scores
+descript_d(d_sciat2, # Data frame containing IAT D scores
            latex = TRUE) # obtain the code for latex tables
 
-## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_point()"----
- d_point(d_sciat1) # Data frame containing SC-IAT D-scores
+## ----fig.align='center', fig.width=6, fig.cap="Default use of function d_point()"----
+ d_point(d_sciat1) # Data frame containing SC-IAT D scores
 
 ## ----scpointSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:scpointSettings} Function d_point() with settings change"----
-d_point(d_sciat1, # dataframe containing SC-IAT D-scores
+d_point(d_sciat1, # dataframe containing SC-IAT D scores
        order_sbj = "D-increasing", # change respondents' order
        x_values = FALSE,  # remove respondents' labels
        include_stats = TRUE, # include descriptive statistics
        col_point = "aquamarine3") # change points color
 
-## ---- fig.align='center', fig.width=6, fig.cap="Default use of function d_density() function"----
-d_density(d_sciat1) # Data frame containing SC-IAT D-scores
+## ----fig.align='center', fig.width=6, fig.cap="Default use of function d_density() function"----
+d_density(d_sciat1) # Data frame containing SC-IAT D scores
 
 ## ----sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_density() function with settings change"----
 d_density(d_sciat1, # dataframe containing IAT Dscores
@@ -98,7 +98,7 @@ multi_dsciat(d_sciat1, # dataframe containing the results of the first SC-IAT
 ## ----fig.align='center', fig.width=6, fig.cap="Results representation of function multi_dsciat() with settings change"----
 multi_dsciat(d_sciat1, # dataframe containing the results of the first SC-IAT
              d_sciat2, # dataframe containing the results of the second SC-IAT
-             graph = "point", # change graph type
+             graph = "boxplot", # change graph type
        x_values = FALSE, # take out x values
        gcolors = "greens", # change color
        label_sc1 = "Dark SC-IAT",  # change label first SC-IAT

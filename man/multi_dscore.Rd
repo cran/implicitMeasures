@@ -16,8 +16,8 @@ correction (D3 to D6).}
 }
 \value{
 A list. The first object is a dataframe containing all the computed
- Dscores. The second object is a \code{ggplot} object, depicting the
- distribution of the \emph{D-score}s through violin plots.
+ \emph{D} scores. The second object is a \code{ggplot} object, depicting the
+ distribution of the \emph{D} scores through boxplots (also displaying the mean and standard deviation).
 
  @import tidyr
 }

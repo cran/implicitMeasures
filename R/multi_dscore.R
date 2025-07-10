@@ -9,8 +9,8 @@
 #'         correction (D3 to D6).
 #'
 #' @return A list. The first object is a dataframe containing all the computed
-#'  Dscores. The second object is a \code{ggplot} object, depicting the
-#'  distribution of the \emph{D-score}s through violin plots.
+#'  \emph{D} scores. The second object is a \code{ggplot} object, depicting the
+#'  distribution of the \emph{D} scores through boxplots (also displaying the mean and standard deviation).
 #'
 #'  @import tidyr
 #' @export
@@ -73,11 +73,11 @@ multi_dscore <- function(data, ds = c("built-in", "error-inflation")){
                               2:max(ncol(dscores)))
   mg <- ggplot(data,
                aes(y = .data$Dscore, x = .data$type)) +
-        geom_violin(trim = FALSE, draw_quantiles = TRUE) +
+        geom_boxplot() +
         stat_summary(fun.data=mean_sdl,
                      geom="pointrange",
-                    color="black") + theme_minimal()
-  mg <- mg + labs(x = type, y = "D-scores")
+                    color="firebrick") + theme_light()
+  mg <- mg + labs(x = type, y = "D scores")
   mulitple_dscores <- list(dscores = dscores,
                            graph = mg)
   return(mulitple_dscores)

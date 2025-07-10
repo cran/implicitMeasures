@@ -89,18 +89,20 @@ str(dscore)
 
 The `compute_iat()` function results in a `data.frame` with class `dscore` containing a number of rows equal to the number of participants. The columns contain the *D* score and otehr useful information on the performance  of each respondent (see the documentation of the `compute_iat()` function for further details). The `IAT_rel()`, `descript_d()`, `d_point()`, and `d_density()` functions  require the object resulting from function `compute_iat()`. 
 
+The IAT D is computed as such that positive scores indicate slower response times in condition identified by Mapping B. 
+
 ### IAT descriptive statistics and reliability
 
 The descriptive statistics of the *D* scores computed on the practice and test blocks, and the actual *D* scores can be easily obtained with the `descript_d()` function: 
 
 ```{r}
-descript_d(dscore) # Data frame containing IAT D-scores
+descript_d(dscore) # Data frame containing IAT Ds
 ```
 
 By specifying `latex = TRUE`, function `descript_d()` print the results in LaTeX code: 
 
 ```{r}
-descript_d(dscore, # Data frame containing IAT D-scores
+descript_d(dscore, # Data frame containing IAT Ds
            latex = TRUE) # obtain the code for latex tables
 ```
 
@@ -126,12 +128,12 @@ d_point(dscore) # Data frame containing IAT D scores
 In case of large sample size, the label identifying each respondent is difficult to read. It can be eliminated by setting `x_values = FALSE`. 
 
 Respondents can be arranged by increasing or decreasing *D* scores by setting argument `order_sbj` equal to `"D-increasing"`  or `"D-decreasing"`, respectively. 
-Descriptive statistics ($M_{\text{D-score}}\pm 2sd$) can be added by setting `include_stats = TRUE`. Finally, the color of the points can be changed by using argument `col_point`. 
+Descriptive statistics ($M_{\text{D}}\pm 2sd$) can be added by setting `include_stats = TRUE`. Finally, the color of the points can be changed by using argument `col_point`. 
 
 ```{r, fig.align='center', fig.width=6, fig.cap="d_point() function with   settings change"}
-d_point(dscore, # dataframe containing IAT D-scores
+d_point(dscore, # dataframe containing IAT Ds
        order_sbj = "D-decreasing", # change respondents order
-       x_values = FALSE, # remove respodents' labels
+       x_values = FALSE, # remove respondents' labels
        include_stats = TRUE, # include descriptive statistics
        col_point = "lightskyblue") # change points color
 ```
@@ -148,13 +150,13 @@ d_density(dscore) # dataframe containing IAT Dscores
 ```
 
 The number of bins can be changed with argument `n_bin`. Argument `graph` can be used for changing the graphical representation of the data. 
-It is possible to choose an histogram representation (`graph = "histogram"`, default), a representation of the density distribution (`graph = "density"`), or a violin plot (`graph = "violin"`). 
+It is possible to choose an histogram representation (`graph = "histogram"`, default), a representation of the density distribution (`graph = "density"`), or a boxplot (`graph = "boxplot"`). 
 Argument `col_fill` can be used to change the color of the points representing each respondent's score in the violin plot. 
-Descriptive statistics (i.e., $M_{\text{D-score}}  \pm 2sd$) can be added to the graph by setting argument `include_stats = TRUE`. 
+Descriptive statistics (i.e., $M_{\text{D}}  \pm 2sd$) can be added to the graph by setting argument `include_stats = TRUE`. 
 
 ```{r sampleSettings, fig.align='center', fig.width=6, fig.cap="\\label{fig:sampleSettings}d_density() function with settings change"}
 d_density(dscore, # dataframe containing IAT Dscores
-        graph = "violin", # change graphical representation
+        graph = "boxplot", # change graphical representation
         include_stats = TRUE) # include descriptive statistics
 ```
 
@@ -179,7 +181,7 @@ str(multi_d)
 
 The second object is a `ggplot` graph displaying the distribution of the *D* scores computed with each algorithm in violin plots.
 
-```{r, fig.align='center', fig.width=6, fig.cap="Multiple D-scores representation"}
+```{r, fig.align='center', fig.width=6, fig.cap="Multiple IAT D scores representation"}
 multi_scores[[2]]
 ```
 

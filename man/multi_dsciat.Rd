@@ -7,7 +7,7 @@
 multi_dsciat(
   sciat1,
   sciat2,
-  graph = c("density", "violin", "point"),
+  graph = c("density", "boxplot", "point"),
   x_values = TRUE,
   gcolors = c("dark", "greens", "blues", "pinks"),
   label_sc1 = "SC-IAT1",
@@ -23,12 +23,12 @@ the first SC-IAT.}
 \item{sciat2}{Dataframe with class \code{dsciat}. Contains the \emph{D} for
 the second SC-IAT.}
 
-\item{graph}{String. Type of graph to display. Default is \code{density}.}
+\item{graph}{String. Type of graph to display, might be  \code{density} (default), \code{boxplot}, or \code{point}}
 
 \item{x_values}{Logical. Shows the values for x-axis (default = \code{TRUE}).
 Only for the point graph.}
 
-\item{gcolors}{String. Colors palette for plotting the results. Default is \code{dark}.}
+\item{gcolors}{String. Colors palette for plotting the results, might be \code{dark} (default), \code{greens}, \code{blues}, or \code{pinks}.}
 
 \item{label_sc1}{String. Label to display in the graph for the first SC-IAT.
 Default is \code{SC-IAT1}.}

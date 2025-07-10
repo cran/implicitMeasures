@@ -23,6 +23,8 @@ knitr::opts_chunk$set(
 
 ```{r setup, echo = FALSE}
 library(implicitMeasures)
+library(knitr)
+library(tidyverse)
 ```
 
 This vignette gives an overview of the `implicitMeasures` package. 
@@ -38,41 +40,34 @@ Usually, the practice and associative practice blocks are composed of 20 trials 
 
 
 ```{r, echo = FALSE}
-library(tableHTML)
 library(data.table)
 iat <- data.table(Block = paste0("B",1:7), Function = c(rep("Practice", 2), "Associative Practice Mapping A", "Associative Test Mapping A", "Practice", "Associative Practice Mapping B", "Associative Test Mapping B"), "Left response key" = c("Object 1", "Positive", "Object 1 + Positive", "Object 1 + Positive",  "Object 2", "Object 2 + Positive", "Object 2 + Positive"), "Right response key" = c("Object 2", "Negative", "Object 2 + Negative", "Object 2 + Negative", "Object 1", "Object 1 + Negative", "Object 1 + Negative") )
 
-tableHTML(iat, rownames = FALSE, widths = c(20, c(rep(310, 3))), 
-          caption = "Table 1: IAT structure.") %>%
-  add_theme(theme = "scientific") %>%
-  add_css_caption(css = list(c("font-weight", "text-align"), c("bold", "left")))
+kable(iat)
 
 ```
 
 During IAT administration, respondents might be given a feedback. In case a stimulus is sorted into the incorrect category, a red cross appears on the screen and the response must be corrected to proceed with the experiment. If a feedback strategy is not included, the error response is not signaled to participants, and they can go on with the experiment. 
 
-The *IAT effect* is given by the difference in respondents' performance between the two associative conditions, under the assumption that the categorization task is easier (i.e., faster response times and higher response accuracy) in the associative condition consistent with respondents' automatic association. The *D-score* [@Greenwald:2003] is usually employed for expressing the strength and direction of the IAT effect. Six different algorithms are available for the computation of the *D-score* (Table 2). The differences between the algorithms lie in the strategies used for treating error and fast responses, while the core procedure remains the same. 
+The *IAT effect* is given by the difference in respondents' performance between the two associative conditions, under the assumption that the categorization task is easier (i.e., faster response times and higher response accuracy) in the associative condition consistent with respondents' automatic association. The *D* score [@Greenwald:2003] is usually employed for expressing the strength and direction of the IAT effect. Six different algorithms are available for the computation of the *D* score (Table 2). The differences between the algorithms lie in the strategies used for treating error and fast responses, while the core procedure remains the same. 
 
 ```{r, echo = FALSE}
 data.table(Dscore = paste0(rep("D", 6), 1:6), 
                       "Error treatment" = c(rep("Built-in", 2), "Mean + 2sd", "Mean + 600ms", 
                                             "Mean +2 sd", "Mean + 600ms"), 
-                      "Lower tail treatment" = c("No", "< 400ms", "No", "No", "< 400ms", "< 400ms")) %>%
-  tableHTML(rownames = F, widths = c(50, 280, 280), caption = "Table 2: D-score algorithm") %>%
-  add_theme(theme = "scientific") %>%
-  add_css_caption(css = list(c("font-weight", "text-align"), c("bold", "left")))
+                      "Lower tail treatment" = c("No", "< 400ms", "No", "No", "< 400ms", "< 400ms")) %>% kable()
 
 ```
 
 Irrespective of the algorithm, trials with a response latency exceeding 10,000ms must be excluded. When participants are given a feedback for their error responses, the algorithms using a built-in correction (*D1* and *D2*) must be used. In these cases, the error responses are replaced by the time at the incorrect response increased by the time needed to correct it. All the other algorithms (*D3* to *D6*) are used when IAT administration does not include a feedback. The error responses are replaced by the average response time of the block in which the error occurred increased by a standard penalty (i.e., either 600ms or twice the standard deviation of the block). The other feature distinguishing the algorithms regards the decision to include responses faster than 400ms or not. 
 
-Once the algorithm has been chosen and the error and fast responses have been treated accordingly, it is possible to compute the *D-score* following a 3-step procedure: 
+Once the algorithm has been chosen and the error and fast responses have been treated accordingly, it is possible to compute the *D* score following a 3-step procedure: 
 
-1. Compute the *D-score* for the associative practice blocks (i.e., $D_{practice}$) by taking the difference between the average response time in the two contrasting associative practice blocks (Blocks B3 and B6 in Table 1). The difference is divided by the standard deviation computed on the pooled trials of both blocks.
+1. Compute the *D* score for the associative practice blocks (i.e., $D_{practice}$) by taking the difference between the average response time in the two contrasting associative practice blocks (Blocks B3 and B6 in Table 1). The difference is divided by the standard deviation computed on the pooled trials of both blocks.
 
-2. Compute the *D-score* for the associative test blocks (i.e., $D_{test}$) by taking the difference between the average response time in the two contrasting associative test blocks (Blocks B4 and B7 in Table 1). The difference is divided by the standard deviation computed on the pooled trials of both blocks.
+2. Compute the *D* score for the associative test blocks (i.e., $D_{test}$) by taking the difference between the average response time in the two contrasting associative test blocks (Blocks B4 and B7 in Table 1). The difference is divided by the standard deviation computed on the pooled trials of both blocks.
 
-3. Compute the actual *D-score* as the mean of $D_{practice}$ and $D_{test}$. 
+3. Compute the actual *D* score as the mean of $D_{practice}$ and $D_{test}$. 
 
 `implicitMeasures` also includes a function (`IAT_rel()`) for computing IAT reliability as the correlation between $D_{practice}$ and $D_{test}$ [see @gaw2017]. 
 
@@ -87,25 +82,21 @@ data.table(Block = paste0("B",1:4),
            Function = paste(rep(c("Associative practice", "Associative test"), 2), 
                             rep(c("Mapping A", "Mapping B"), c(2,2))),
            "Left response Key" = c(rep("Object 1 + Positive", 2), rep("Positive", 2)), 
-           "Right response Key" = c(rep("Negative", 2), rep("Object 1 + Negative", 2))) %>%
-  tableHTML(rownames = F, widths = c(20, 310, 310, 310), caption = "Table 3: SC-IAT structure") %>%
-  add_theme(theme = "scientific") %>%
-  add_css_caption(css = list(c("font-weight", "text-align"), c("bold", "left")))
-  
+           "Right response Key" = c(rep("Negative", 2), rep("Object 1 + Negative", 2))) %>% kable()
 ```
 
 During the SC-IAT administration, respondents receive a feedback signaling whether the response was correct (a green "O") or incorrect (a red "X"). A response time window (rtw) at 1,500ms is included in the administration, after which the stimulus on the screen disappears. Responses exceeding the rtw are considered non-response. However, there also cases in which the SC-IAT administration does not include any of these features. 
 
 The *SC-IAT effect* results from the difference in respondents' performance between the two associative conditions, under the assumption that the task is easier in the condition consistent with respondents' automatic association. 
 
-A modification of the IAT *D-score* has been proposed to interpret the SC-IAT effect [@karp:2006]. Only Blocks B2 and B4 are used for the computation of the SC-IAT *D-score*. Fast responses (responses under 350ms) are discarded, as well as non-responses (responses exceeding the rtw). Error responses are replaced by the average response time in which the error occurred increased by a standard penalty of 400ms. The difference between the average response time in the two contrasting conditions is standardized by the standard deviation of the correct trials in both conditions. 
+A modification of the IAT *D* score has been proposed to interpret the SC-IAT effect [@karp:2006]. Only Blocks B2 and B4 are used for the computation of the SC-IAT *D* score. Fast responses (responses under 350ms) are discarded, as well as non-responses (responses exceeding the rtw). Error responses are replaced by the average response time in which the error occurred increased by a standard penalty of 400ms. The difference between the average response time in the two contrasting conditions is standardized by the standard deviation of the correct trials in both conditions. 
 
 
 ## The `raw_data` data set
 
 The `raw_data` contains the data from `r length(unique(raw_data$Participant))` respondents administered with an IAT for the implicit assessment of the preference between Dark and Milk chocolate (Chocolate IAT), a SC-IAT for the assessment of the absolute positive or negative evaluation of Milk chocolate (Milk SC-IAT), and a SC-IAT for the implicit assessment of the absolute positive or negative evaluation of Dark Chocolate SC-IAT (Dark SC-IAT), along with their demographic information. These data are published in @epifania2020.
 
-The IAT administration did not include a feedback strategy, hence only the *D-score* algorithms not including a built-in correction should be computed. 
+The IAT administration did not include a feedback strategy, hence only the *D* score algorithms not including a built-in correction should be computed. 
 
 ```{r}
 # upload the data set

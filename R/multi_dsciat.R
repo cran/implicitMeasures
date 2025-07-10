@@ -6,10 +6,10 @@
 #'                the first SC-IAT.
 #' @param sciat2 Dataframe with class \code{dsciat}. Contains the \emph{D} for
 #'                the second SC-IAT.
-#' @param graph String. Type of graph to display. Default is \code{density}.
+#' @param graph String. Type of graph to display, might be  \code{density} (default), \code{boxplot}, or \code{point}
 #' @param x_values Logical. Shows the values for x-axis (default = \code{TRUE}).
 #'                          Only for the point graph.
-#' @param gcolors String. Colors palette for plotting the results. Default is \code{dark}.
+#' @param gcolors String. Colors palette for plotting the results, might be \code{dark} (default), \code{greens}, \code{blues}, or \code{pinks}.
 #' @param label_sc1 String. Label to display in the graph for the first SC-IAT.
 #'                   Default is \code{SC-IAT1}.
 #' @param label_sc2 String. Label to display in the graph for the first SC-IAT.
@@ -52,7 +52,7 @@
 #'  multi_dsciat(d_sciat1, d_sciat2) # plot the D of two SC-IATs with default
 #'                                     # settings
 multi_dsciat <- function(sciat1, sciat2,
-                         graph = c("density", "violin", "point"),
+                         graph = c("density", "boxplot", "point"),
                          x_values = TRUE,
                          gcolors = c("dark", "greens", "blues", "pinks"),
                          label_sc1 = "SC-IAT1",
@@ -92,7 +92,7 @@ multi_dsciat <- function(sciat1, sciat2,
                       aes(x = .data$d_sciat,
                           color = .data$sciat)) +
               geom_density(size = 1.1)  +
-              theme_minimal() + theme(axis.title.y = element_blank()) +
+              theme_light() + theme(axis.title.y = element_blank()) +
               xlab(label_y)
     # add statistics
     if (dens_mean == TRUE) {
@@ -104,16 +104,16 @@ multi_dsciat <- function(sciat1, sciat2,
     } else {
       d_graph <- d_graph
     }
-  } else if (graph == "violin") {
+  } else if (graph == "boxplot") {
     d_graph <- ggplot(data,
                       aes(y = .data$d_sciat,
                           x = .data$sciat,
                           color = .data$sciat)) +
-               geom_violin(trim = FALSE) +
+               geom_boxplot() +
                stat_summary(fun.data = mean_sdl,
                             geom = "pointrange",
-                            color = "black") +
-               theme_minimal()  +
+                            color = "firebrick") +
+               theme_light()  +
                ylab(label_y)
   } else if (graph == "point") {
     d_graph <- ggplot(data,
@@ -122,7 +122,7 @@ multi_dsciat <- function(sciat1, sciat2,
                           group = .data$sciat)) +
                geom_point(aes(shape = .data$sciat,
                                 color = .data$sciat)) +
-               theme_minimal() + theme(axis.text.x = element_text(size = 5)) +
+               theme_light() + theme(axis.text.x = element_text(size = 5)) +
                scale_shape_discrete(name  = "SC-IAT type") + ylab(label_y) +
       xlab("Participant")
     if (x_values == TRUE){

@@ -6,7 +6,7 @@
 \usage{
 d_density(
   data,
-  graph = c("histogram", "density", "violin"),
+  graph = c("histogram", "density", "boxplot"),
   n_bin = 80,
   col_fill = "royalblue",
   col_point = "red",
@@ -26,7 +26,7 @@ d_density(
 is \code{royalblue}.}
 
 \item{col_point}{String. Indicates the color for the individual scores --each
-point -- in the violin plot. Default is \code{red}.}
+point -- in the boxplot. Default is \code{red}.}
 
 \item{include_stats}{Logical. Indicates whether to add descriptive statistics.
 The \code{mean} is depicted with a solid line. The two
@@ -37,7 +37,7 @@ Default is \code{FALSE}.}
 A ggplot object.
 }
 \description{
-Plot the distribution of the IAT \emph{D-score} or the SC-IAT \emph{D}.
+Plot the distribution of the IAT \emph{D} score or the SC-IAT \emph{D}.
 }
 \examples{
 \donttest{
@@ -63,7 +63,7 @@ Plot the distribution of the IAT \emph{D-score} or the SC-IAT \emph{D}.
   d_density(iat_dscore, graph = "histogram",
           n_bin = 30) # Histogram with a different number of bins
   d_density(iat_dscore, graph = "density") # IAT D-score density plot
-  d_density(iat_dscore, graph = "violin") # IAT D-score violin plot
+  d_density(iat_dscore, graph = "boxplot") # IAT D-score boxplot
 
   # Plot the SC-IAT D for the first SC-IAT
   data("raw_data") # load data

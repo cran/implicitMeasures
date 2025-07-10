@@ -1,6 +1,6 @@
 #' Plot IAT or SC-IAT scores (distribution)
 #'
-#' Plot the distribution of the IAT \emph{D-score} or the SC-IAT \emph{D}.
+#' Plot the distribution of the IAT \emph{D} score or the SC-IAT \emph{D}.
 #'
 #' @param data Dataframe with either class \code{dscore} or \code{dsciat}.
 #' @param graph String. Indicates the graphs to display. Default is
@@ -10,7 +10,7 @@
 #'                  \code{histogram} or the curve of the \code{density}. Default
 #'                  is \code{royalblue}.
 #' @param col_point String. Indicates the color for the individual scores --each
-#'                   point -- in the violin plot. Default is \code{red}.
+#'                   point -- in the boxplot. Default is \code{red}.
 #' @param include_stats Logical. Indicates whether to add descriptive statistics.
 #'                       The \code{mean} is depicted with a solid line. The two
 #'                       dashed lines represent +/- 2 \emph{s.d.} from the mean.
@@ -46,7 +46,7 @@
 #'   d_density(iat_dscore, graph = "histogram",
 #'           n_bin = 30) # Histogram with a different number of bins
 #'   d_density(iat_dscore, graph = "density") # IAT D-score density plot
-#'   d_density(iat_dscore, graph = "violin") # IAT D-score violin plot
+#'   d_density(iat_dscore, graph = "boxplot") # IAT D-score boxplot
 #'
 #'   # Plot the SC-IAT D for the first SC-IAT
 #'   data("raw_data") # load data
@@ -73,7 +73,7 @@
 #'                                    }
 
 d_density <- function(data,
-                    graph = c("histogram", "density", "violin"),
+                    graph = c("histogram", "density", "boxplot"),
                     n_bin = 80,
                     col_fill = "royalblue",
                     col_point = "red",
@@ -100,7 +100,7 @@ d_density <- function(data,
       geom_histogram(bins = n_bin, col = col_fill,
                      fill = col_fill,
                      alpha = .50)
-    d_graph <- d_graph  + theme_minimal() + xlab(x_lab)  +
+    d_graph <- d_graph  + theme_light() + xlab(x_lab)  +
       theme(axis.title.y = element_blank())
     # include descroptive statistics
     if (include_stats == FALSE) {
@@ -119,7 +119,7 @@ d_density <- function(data,
                       aes(x = .data$d)) +
       geom_density(alpha = 0.70, fill = col_fill ,
                    col = col_fill)
-    d_graph <- d_graph  + theme_minimal() + xlab(x_lab) +
+    d_graph <- d_graph  + theme_light() + xlab(x_lab) +
       theme(axis.title.y = element_blank())
     # include statistics
     if (include_stats == FALSE) {
@@ -133,14 +133,14 @@ d_density <- function(data,
                                                       2 * sd(.data$d))),
                                       linetype = "dotted")
     }
-  } else if (graph == "violin") {
+  } else if (graph == "boxplot") {
     d_graph <- ggplot(data,
                       aes(y = .data$d,
                           x = .data$variable)) +
-      geom_violin(trim = FALSE)  +
+      geom_boxplot()  +
       geom_jitter(shape = 16, col = col_point,
                   position = position_jitter(0.2))
-    d_graph <- d_graph  + theme_minimal()
+    d_graph <- d_graph  + theme_light()
     d_graph <- d_graph + theme(axis.text.x = element_blank(),
                                axis.title.x = element_blank()) +
       ylab(x_lab)

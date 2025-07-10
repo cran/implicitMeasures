@@ -1,10 +1,17 @@
 Package: implicitMeasures
 Type: Package
 Title: Compute Scores for Different Implicit Measures
-Version: 0.2.1
-Author: Ottavia M. Epifania [aut, cre],
-    Pasquale Anselmi [ctb], 
-    Egidio Robusto [ctb]
+Version: 0.3.0
+Authors@R: c(person(given = c("Ottavia", "M."),
+           family = "Epifania",
+           role = c("aut", "cre"),
+           email = "otta.epifania@gmail.com"),
+    person(given = "Pasquale",
+           family = "Anselmi",
+           role = "ctb"),
+    person(given = "Egidio",
+           family = "Robusto",
+           role = "ctb"))
 Maintainer: Ottavia M. Epifania <otta.epifania@gmail.com>
 Description: A tool for computing the scores for the Implicit Association Test 
     (IAT; Greenwald, McGhee & Schwartz (1998) <doi:10.1037/0022-3514.74.6.1464>) 
@@ -17,13 +24,16 @@ Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Imports: ggplot2, stringr, tidyr, xtable
 Suggests: testthat (>= 2.1.0), knitr, rmarkdown, tableHTML, data.table,
-        spelling
+        spelling, tidyverse
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2022-02-15 17:40:54 UTC; huawei
+Packaged: 2025-07-10 14:37:54 UTC; Ottavia
+Author: Ottavia M. Epifania [aut, cre],
+  Pasquale Anselmi [ctb],
+  Egidio Robusto [ctb]
 Repository: CRAN
-Date/Publication: 2022-02-16 13:40:13 UTC
+Date/Publication: 2025-07-10 14:50:05 UTC
