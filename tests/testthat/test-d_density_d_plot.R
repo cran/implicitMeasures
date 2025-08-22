@@ -22,8 +22,8 @@ test_that("d_point produces a ggplot fot the IAT",{
   # calculate D-score
   iat_dscore <- compute_iat(iat_data,
                          Dscore =  "d6")
-  expect_equal(class(d_point(iat_dscore))[[1]], "gg")
-  expect_equal(class(d_point(iat_dscore))[[2]], "ggplot")
+  expect_true(class(d_point(iat_dscore))[[1]] == "gg")
+  expect_true(class(d_point(iat_dscore))[[2]] == "ggplot")
 })
 
 test_that("d_point produces a ggplot fot the SC-IAT",{
@@ -44,8 +44,8 @@ test_that("d_point produces a ggplot fot the SC-IAT",{
                      mappingA = "test.sc_dark.Darkbad",
                      mappingB = "test.sc_dark.Darkgood",
                      non_response = "alert")
-  expect_equal(class(d_point(d_sciat1))[[1]], "gg")
-  expect_equal(class(d_point(d_sciat1))[[2]], "ggplot")
+  expect_true(class(d_point(d_sciat1))[[1]] == "gg")
+  expect_true(class(d_point(d_sciat1))[[2]] == "ggplot")
 })
 
 
@@ -74,8 +74,8 @@ test_that("d_density produces a ggplot fot the IAT",{
   # calculate D-score
   iat_dscore <- compute_iat(iat_data,
                          Dscore =  "d6")
-  expect_equal(class(d_density(iat_dscore))[[1]], "gg")
-  expect_equal(class(d_density(iat_dscore))[[2]], "ggplot")
+  expect_true(class(d_density(iat_dscore))[[1]] == "gg")
+  expect_true(class(d_density(iat_dscore))[[2]] == "ggplot")
 })
 
 test_that("d_density produces a ggplot fot the SC-IAT",{
@@ -96,6 +96,6 @@ test_that("d_density produces a ggplot fot the SC-IAT",{
                      mappingA = "test.sc_dark.Darkbad",
                      mappingB = "test.sc_dark.Darkgood",
                      non_response = "alert")
-  expect_equal(class(d_density(d_sciat1))[[1]], "gg")
-  expect_equal(class(d_density(d_sciat1))[[2]], "ggplot")
+  expect_true(class(d_density(d_sciat1))[[1]] == "gg")
+  expect_true(class(d_density(d_sciat1))[[2]] == "ggplot")
 })

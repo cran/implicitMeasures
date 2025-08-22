@@ -51,7 +51,7 @@ test_that("compute_iat produce a dataframe of class dscore (all scores)", {
 
   for(i in 1:length(ds)){
     scores[[i]] <- compute_iat(iat_cleandata[[1]], Dscore = ds[i])
-    expect_equal(class(scores[[i]])[2], "dscore")
+    expect_true(class(scores[[i]])[2] == "dscore")
   }
 })
 
@@ -75,6 +75,6 @@ test_that("compute_iat produce a dataframe with the same number of sbjs for all"
 
   for(i in 1:length(ds)){
     scores[[i]] <- compute_iat(iat_cleandata[[1]], Dscore = ds[i])
-    expect_equal(nrow(scores[[i]]), length(unique(iat_cleandata[[1]]$participant)) )
+    expect_true(nrow(scores[[i]]) == length(unique(iat_cleandata[[1]]$participant)) )
   }
 })

@@ -70,7 +70,7 @@ test_that("compute_sciat returns the right object", {
                         mappingA = "test.sc_dark.Darkbad",
                         mappingB = "test.sc_dark.Darkgood",
                         non_response = "alert")
-  expect_equal(class(sciat_score)[2], "dsciat")
+  expect_true(class(sciat_score)[2] == "dsciat")
   expect_output(str(sciat_score))
 })
 

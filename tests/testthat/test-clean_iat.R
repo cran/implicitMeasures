@@ -13,8 +13,7 @@ test_that("clean_iat produces one dataframe with iat_clean class", {
                              trial_eliminate = c("reminder", "reminder1"),
                              demo_id = "blockcode",
                              trial_demo = "demo")
-
-  expect_equal(class(iat_cleandata[[1]])[2], "iat_clean")
+  expect_true(class(iat_cleandata[[1]])[2] == "iat_clean")
 })
 
 test_that("clea_iat produces the right list when demo is specified", {
@@ -156,6 +155,6 @@ test_that("clean_iat produces dataframes for data and demographic with the same 
                              trial_eliminate = c("reminder", "reminder1"),
                              demo_id = "blockcode",
                              trial_demo = "demo")
-  expect_equal(length(unique(iat_cleandata[[1]]$participant)),
+  expect_true(length(unique(iat_cleandata[[1]]$participant)) ==
                length(unique(iat_cleandata[[3]]$participant)))
 })

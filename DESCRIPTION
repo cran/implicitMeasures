@@ -1,7 +1,7 @@
 Package: implicitMeasures
 Type: Package
 Title: Compute Scores for Different Implicit Measures
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(person(given = c("Ottavia", "M."),
            family = "Epifania",
            role = c("aut", "cre"),
@@ -31,9 +31,9 @@ Suggests: testthat (>= 2.1.0), knitr, rmarkdown, tableHTML, data.table,
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2025-07-10 14:37:54 UTC; Ottavia
+Packaged: 2025-08-22 16:02:23 UTC; Ottavia
 Author: Ottavia M. Epifania [aut, cre],
   Pasquale Anselmi [ctb],
   Egidio Robusto [ctb]
 Repository: CRAN
-Date/Publication: 2025-07-10 14:50:05 UTC
+Date/Publication: 2025-08-22 17:10:13 UTC

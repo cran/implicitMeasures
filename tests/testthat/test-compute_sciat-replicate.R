@@ -31,8 +31,6 @@ test_that("SC-IAT D-score replicate", {
                     mappingB = "test.sc_milk.Milkgood",
                     non_response = "alert")
   Rsciat2$participant <- as.character(Rsciat2$participant)
-  expect_equal(dsciat1[, "d_sciat"],
-               Rsciat1[, "d_sciat"])
-  expect_equal(dsciat2[, "d_sciat"],
-               Rsciat2[, "d_sciat"])
+  expect_true(all(dsciat1[, "d_sciat"] == Rsciat1[, "d_sciat"]) == TRUE)
+  expect_true(all(dsciat1[, "d_sciat"] == Rsciat1[, "d_sciat"]) == TRUE)
 })

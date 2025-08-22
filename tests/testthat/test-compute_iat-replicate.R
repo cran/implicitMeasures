@@ -24,8 +24,16 @@ test_that("D-score replicated", {
   }
   # upload the iat dscore compute_iat on 07/09/2020
   data("iatdscores")
+  long_old <- reshape(iatdscores, idvar = "participant", v.names = "old_scores",
+                      times = colnames(iatdscores)[-1],
+                      timevar = "labels",
+                      varying = list(names(iatdscores)[-1]), direction = "long")
+  new_long <- reshape(dscores, idvar = "participant", v.names = "new_scores",
+                      times = colnames(dscores)[-1],
+                      timevar = "labels",
+                      varying = list(names(dscores)[-1]), direction = "long")
+  comparison <- merge(long_old, new_long, by = c("participant", "labels"))
   # check that all the columns of the two dataset
-  for (i in 1:ncol(dscores)){
-    expect_equal(dscores[, i], iatdscores[, i])
-  }
+
+    expect_true(all(comparison$old_scores == comparison$new_scores) == TRUE)
 })

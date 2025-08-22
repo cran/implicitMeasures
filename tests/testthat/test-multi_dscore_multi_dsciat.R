@@ -32,8 +32,8 @@ test_that("multi_dscore results in a List of 2 (data.frame and list)",{
                              trial_demo = "demo")
   iat_data <- iat_cleandata[[1]]
   expect_output(str(multi_dscore(iat_data)), "List of 2")
-  expect_equal(class(multi_dscore(iat_data)[[1]]), "data.frame")
-  expect_equal(class(multi_dscore(iat_data)[[2]])[2], "ggplot")
+  expect_true(class(multi_dscore(iat_data)[[1]]) == "data.frame")
+  expect_true(class(multi_dscore(iat_data)[[2]])[2] == "ggplot")
 })
 
 test_that("multi_dscore results in dataframe with 3 col when built-in (default) is chosen",{
@@ -50,8 +50,8 @@ test_that("multi_dscore results in dataframe with 3 col when built-in (default) 
                              demo_id = "blockcode",
                              trial_demo = "demo")
   iat_data <- iat_cleandata[[1]]
-  expect_equal(ncol(multi_dscore(iat_data)[[1]]), 3)
-  expect_equal(ncol(multi_dscore(iat_data)[[1]]), ncol(multi_dscore(iat_data, ds = "built-in")[[1]]))
+  expect_true(ncol(multi_dscore(iat_data)[[1]]) == 3)
+  expect_true(ncol(multi_dscore(iat_data)[[1]]) == ncol(multi_dscore(iat_data, ds = "built-in")[[1]]))
 })
 
 test_that("multi_dscore results in dataframe with 5 col when error-inflation is chosen",{
@@ -68,7 +68,7 @@ test_that("multi_dscore results in dataframe with 5 col when error-inflation is 
                              demo_id = "blockcode",
                              trial_demo = "demo")
   iat_data <- iat_cleandata[[1]]
-  expect_equal(ncol(multi_dscore(iat_data, ds = "error-inflation")[[1]]), 5)
+  expect_true(ncol(multi_dscore(iat_data, ds = "error-inflation")[[1]]) == 5)
 })
 
 

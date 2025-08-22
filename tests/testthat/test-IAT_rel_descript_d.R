@@ -36,7 +36,7 @@ test_that("IAT_rel results in a list of 2 elements with class IAT_rel", {
   iat_dscore <- compute_iat(iat_data,
                          Dscore =  "d2")
   expect_output(str(IAT_rel(iat_dscore)), "List of 2")
-  expect_equal(class(IAT_rel(iat_dscore)), "IAT_rel")
+  expect_true(class(IAT_rel(iat_dscore)) == "IAT_rel")
 })
 
 
